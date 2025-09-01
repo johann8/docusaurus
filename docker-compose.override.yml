@@ -1,0 +1,38 @@
+---
+#################### SERVICES
+services:
+
+  # NGINX Container
+  nginx-docusaurus:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+
+      ##### === To docs-pbs01.int.wassermanngruppe.de (extern) ===
+      ### === to routers ====
+      - "traefik.http.routers.nginx-docusaurus-pbs01-secure.entrypoints=websecure"
+      - "traefik.http.routers.nginx-docusaurus-pbs01-secure.rule=Host(`${HOSTNAME1}.${DOMAINNAME}`)"
+      - "traefik.http.routers.nginx-docusaurus-pbs01-secure.tls=true"
+      - "traefik.http.routers.nginx-docusaurus-pbs01-secure.service=nginx-docusaurus-pbs01"
+      ### === to service ====
+      - "traefik.http.services.nginx-docusaurus-pbs01.loadbalancer.server.port=${PORT0}"
+      ### ==== redirect to authentik for secure login ====
+      #- "traefik.http.routers.nginx-docusaurus-secure.middlewares=rate-limit@file,secHeaders@file"
+      - "traefik.http.routers.nginx-docusaurus-pbs01-secure.middlewares=chain-authentik-proxy@file"
+
+      ##### === To docs.int.wassermanngruppe.de (intern) ===
+      ### === to routers ====
+      - "traefik.http.routers.nginx-docusaurus-secure.entrypoints=websecure"
+      - "traefik.http.routers.nginx-docusaurus-secure.rule=Host(`${HOSTNAME0}.${DOMAINNAME}`)"
+      - "traefik.http.routers.nginx-docusaurus-secure.tls=true"
+      - "traefik.http.routers.nginx-docusaurus-secure.service=nginx-docusaurus"
+      ### === to service ====
+      - "traefik.http.services.nginx-docusaurus.loadbalancer.server.port=${PORT0}"
+      ### === redirect to authentik for secure login ====
+      - "traefik.http.routers.nginx-docusaurus-secure.middlewares=rate-limit@file,traefik-compress@file,secHeaders@file"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true

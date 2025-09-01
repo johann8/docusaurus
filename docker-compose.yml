@@ -1,0 +1,36 @@
+---
+#################### NETWORKS
+networks:
+  docusaurNet:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: br-docusaurNet
+    enable_ipv6: false
+    ipam:
+      driver: default
+      config:
+        - subnet: ${IPV4_NETWORK:-172.26.27}.0/24
+#        - subnet: ${IPV6_NETWORK:-fd4d:6169:6c63:6f27}::/64
+
+#################### SERVICES
+services:
+
+  # NGINX Container
+  nginx-docusaurus:
+    image: johann8/docusaurus:${DOCUSAURUS_TAG:-latest}
+    container_name: nginx-docusaurus
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges=true
+#    ports:
+#      - "8001:80"
+#    volumes:
+#      - ./data/docusaurus/site:/var/www/html
+#      - ./data/nginx/templates:/etc/nginx/templates
+    environment:
+      - TZ=${TZ}
+      - NODE_ENV=production
+    networks:
+      docusaurNet:
+       ipv4_address: ${IPV4_NETWORK:-}.5
+#       ipv6_address: ${IPV6_NETWORK:-fd4d:6169:6c63:6f27}::5
