@@ -10,8 +10,8 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+  title: 'Wassermann Gruppe',
+  tagline: 'Dokumentation von Wassermann Gruppe',
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -20,14 +20,14 @@ const config = {
   },
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://docusaurus.int.wassermanngruppe.de/',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
+  organizationName: 'johann8', // Usually your GitHub org/user name.
   projectName: 'docusaurus', // Usually your repo name.
 
   onBrokenLinks: 'throw',
@@ -86,9 +86,9 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
-        title: 'My Site',
+        title: 'Wassermann',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'Wassermann Logo',
           src: 'img/logo.svg',
         },
         items: [
@@ -96,11 +96,11 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Anleitungen',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/johann8/docusaurus',
             label: 'GitHub',
             position: 'right',
           },
@@ -108,6 +108,7 @@ const config = {
       },
       footer: {
         style: 'dark',
+        /* // Start Footer Links
         links: [
           {
             title: 'Docs',
@@ -149,6 +150,7 @@ const config = {
             ],
           },
         ],
+        */  // End Footer Links
         copyright: `Copyright © ${new Date().getFullYear()} Wassermann Gruppe. Built with Docusaurus.`,
       },
       prism: {
